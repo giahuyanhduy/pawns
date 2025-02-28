@@ -7,7 +7,7 @@ install_docker() {
     echo "Kiểm tra và cài đặt Docker..."
     if ! command -v docker &> /dev/null; then
         echo "Docker chưa được cài đặt. Đang cài đặt..."
-        apt-get update -y
+        #apt-get update -y
         apt-get install -y docker.io
         systemctl start docker
         systemctl enable docker
