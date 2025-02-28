@@ -1,6 +1,14 @@
 #!/bin/bash
 
-# Script để cài Docker, lấy device-id từ /opt/autorun và chạy container Pawns.app
+# Script để cài Docker, đồng bộ thời gian, lấy device-id từ /opt/autorun và chạy container Pawns.app
+
+# Đồng bộ thời gian hệ thống
+sync_time() {
+    echo "Đồng bộ thời gian hệ thống..."
+    #apt install ntpdate -y
+    ntpdate pool.ntp.org
+    echo "Thời gian đã được đồng bộ: $(date)"
+}
 
 # Cập nhật hệ thống và cài Docker nếu chưa có
 install_docker() {
@@ -63,7 +71,8 @@ run_pawns_container() {
 
 # Main
 echo "Bắt đầu script..."
-echo "version 1.1.2"
+echo "version 1.1.3"
+sync_time
 install_docker
 get_device_id
 run_pawns_container
