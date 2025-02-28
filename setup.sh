@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script để cài Docker, lấy device-id từ /opt/autorun và chạy container Pawns.app
-
+echo "version 1.1.1"
 # Cập nhật hệ thống và cài Docker nếu chưa có
 install_docker() {
     echo "Kiểm tra và cài đặt Docker..."
