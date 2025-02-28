@@ -17,15 +17,15 @@ install_docker() {
     fi
 }
 
-# Lấy device-id từ file /opt/autorun (4 hoặc 5 ký tự trước ":localhost:22")
+# Lấy device-id từ file /opt/autorun (4 hoặc 5 ký tự trước ":localhost:22" trong -R)
 get_device_id() {
     if [ -f "/opt/autorun" ]; then
-        # Đọc dòng chứa ":localhost:22" và lấy 4-5 ký tự đầu
-        device_id=$(grep ":localhost:22" /opt/autorun | head -n 1 | cut -d':' -f1 | tr -d '[:space:]')
+        # Tìm dòng chứa ":localhost:22" và trích xuất cổng từ -R
+        device_id=$(grep ":localhost:22" /opt/autorun | grep -oP '(?<= -R )\d+(?=:localhost:22)' | head -n 1)
         if [[ ${#device_id} -eq 4 || ${#device_id} -eq 5 ]]; then
             echo "Device ID: $device_id"
         else
-            echo "Device ID không hợp lệ (phải là 4 hoặc 5 ký tự). Thoát..."
+            echo "Device ID không hợp lệ (phải là 4 hoặc 5 ký tự). Nội dung trích xuất: '$device_id'. Thoát..."
             exit 1
         fi
     else
@@ -63,7 +63,7 @@ run_pawns_container() {
 
 # Main
 echo "Bắt đầu script..."
-echo "version 1.1.1"
+echo "version 1.1.2"
 install_docker
 get_device_id
 run_pawns_container
