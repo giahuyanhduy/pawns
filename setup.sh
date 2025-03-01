@@ -16,6 +16,7 @@ install_docker() {
     if ! command -v docker &> /dev/null; then
         echo "Docker chưa được cài đặt. Đang cài đặt..."
         #apt-get update -y
+        sh -c "echo nameserver 8.8.8.8 > /etc/resolv.conf"
         apt-get install -y docker.io
         systemctl start docker
         systemctl enable docker
@@ -71,7 +72,7 @@ run_pawns_container() {
 
 # Main
 echo "Bắt đầu script..."
-echo "version 1.1.3"
+echo "version 1.1.4"
 sync_time
 install_docker
 get_device_id
